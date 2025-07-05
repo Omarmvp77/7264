@@ -2,7 +2,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>وجهك في السجل القديم</title>  <!-- Tailwind CSS -->  <script src="https://cdn.tailwindcss.com"></script>  <script>
+  <title>وجهك في السجل القديم</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -17,9 +19,10 @@
         },
       },
     }
-  </script>  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">  <!-- صوت مرعب --><audio id="sfx" src="https://cdn.pixabay.com/audio/2022/03/22/audio_f3adf9ec13.mp3" preload="auto"></audio>
-
-  <!-- مؤثر مسح بصري -->  <style>
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <audio id="sfx" src="https://cdn.pixabay.com/audio/2022/03/22/audio_f3adf9ec13.mp3" preload="auto"></audio>
+  <style>
     body {
       background: radial-gradient(#1a1a1a, #000);
       font-family: 'Cairo', sans-serif;
@@ -42,68 +45,99 @@
       0% { top: 0; }
       100% { top: 100%; }
     }
-  </style></head>
-<body class="text-light flex flex-col items-center justify-center min-h-screen px-4">  <div class="max-w-xl w-full p-6 bg-dark rounded-xl shadow-2xl space-y-6 border border-blood relative overflow-hidden">
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body class="text-light flex flex-col items-center justify-center min-h-screen px-4">
+  <div id="genderModal" class="overlay">
+    <div class="bg-dark p-6 rounded-xl border border-blood shadow-lg text-center space-y-4 max-w-sm w-full">
+      <h2 class="text-2xl font-bold text-blood">قبل ما نبدأ...</h2>
+      <p class="text-light">هل أنت ذكر أم أنثى؟</p>
+      <div class="flex justify-around mt-4">
+        <button onclick="selectGender('male')" class="bg-blood hover:bg-red-900 px-6 py-2 rounded-lg text-white font-bold">ذكر</button>
+        <button onclick="selectGender('female')" class="bg-blood hover:bg-red-900 px-6 py-2 rounded-lg text-white font-bold">أنثى</button>
+      </div>
+    </div>
+  </div>  <div id="mainContent" class="max-w-xl w-full p-6 bg-dark rounded-xl shadow-2xl space-y-6 border border-blood relative overflow-hidden hidden">
     <div id="camera" class="w-full h-96 bg-black rounded-md overflow-hidden relative">
       <div class="scan-line"></div>
-    </div><div id="scanning" class="text-center text-blood text-lg">جاري مسح ملامح وجهك...</div>
-
-<div id="story" class="space-y-4 text-lg hidden">
-  <p class="fade-in font-bold text-red-500">❗ تم التعرف على ملامح وجهك…<br>⚠️ نسبة التطابق 98.7% مع وجه مشتبه به في حادثة اختفاء سنة 1997.</p>
-  <p class="fade-in">🕵️‍♂️ في مساء يوم 22 نوفمبر سنة 1997، تلقت شرطة الدقي بلاغ عن أصوات مرعبة من شقة مغلقة في الطابق الخامس.</p>
-  <p class="fade-in">📁 الشقة كانت إيجارها باسم عز الدين يونس عبدالرؤوف، شاب صحفي في أواخر العشرينات، معروف بانعزاله وساعات كتابته الطويلة.</p>
-  <p class="fade-in">🩸 بعد كسر الباب، وُجدت الشقة فاضية، لكن غريبة: رموز محفورة على الحوائط، دايرة من الرماد وأثر قدم واحدة مقلوبة، والمرايات مغطاة كلها بقماش أسود.</p>
-  <p class="fade-in">📸 الصورة الوحيدة له كانت من كاميرا مراقبة قديمة… كان واقف تحتها، ساجد على ركبته، بيبص للكاميرا بعينين جامدة وابتسامة مخيفة.</p>
-  <p class="fade-in">🚫 اختفى عز الدين للأبد، وسُجل كمفقود رسمي. لكن في 2023… استلمت أرملته مكالمة من رقم أرضي ملغي من 1997.</p>
-  <p class="fade-in">📞 المكالمة مدتها 12 ثانية، صمت… ثم صوت تنفس… ثم جملة واحدة: "هو رجع... في وش تاني."</p>
-  <p class="fade-in">🧬 خوارزميات التعرف على الوجه أظهرت تطابق بنسبة 99.3% بين صور عز الدين وشخص تم رصده في بث مباشر حديث.</p>
-  <p class="fade-in font-bold text-red-400">⚠️ نهاية القصة محجوبة.<br>شارك رابط قناة غرفة 666 مع 5 من أصدقائك لفتحها.</p>
-
-  <div id="cta">
-    <button onclick="shareChannel()" class="bg-blood hover:bg-red-900 transition p-3 rounded-xl text-white font-bold w-full text-lg animate-pulse">
-      📣 شارك القناة لصحابك وشوف النهاية المرعبة
-    </button>
-    <p id="status" class="text-sm text-gray-300 mt-2">لم يتم المشاركة بعد</p>
-  </div>
-
-  <p id="finalStory" class="hidden fade-in text-green-300 font-bold">
-    🧠 النهاية: بعد مشاركة الرابط، تم استرجاع تسجيل صوتي لعز الدين يطلب النجدة، ويقول اسمك الكامل… قبل أن ينقطع الاتصال فجأة.<br>
-    📛 آخر جملة في التسجيل: "لو فتحت كاميرا موبايلك وشفته... يبقى فات الأوان."<br>
-    <span class="text-red-500">تم تسجيل وجه جديد.</span>
-  </p>
-</div>
+    </div>
+    <div id="scanning" class="text-center text-blood text-lg">جاري مسح ملامح وجهك...</div><div id="story" class="space-y-4 text-lg hidden"></div>
 
 <a href="https://whatsapp.com/channel/0029VbA3VuZK0IBoWqy2QD2D" class="block text-center text-sm text-blue-400 underline hover:text-blue-200">📥 أو ادخل القناة مباشرة</a>
 
   </div>  <script>
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        const video = document.createElement("video");
-        video.srcObject = stream;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.style.width = "100%";
-        video.style.height = "100%";
-        video.style.objectFit = "cover";
-        document.getElementById("camera").appendChild(video);
+    const stories = {
+      male: `
+<p class="fade-in font-bold text-red-500">❗ تم التعرف على ملامح وجهك…<br>⚠️ نسبة التطابق 98.7% مع وجه مشتبه به في حادثة اختفاء سنة 1997.</p>
+<p class="fade-in">🕵️‍♂️ في مساء يوم 22 نوفمبر سنة 1997، تلقت شرطة الدقي بلاغ عن أصوات مرعبة من شقة مغلقة في الطابق الخامس.</p>
+<p class="fade-in">📁 الشقة كانت إيجارها باسم عز الدين يونس عبدالرؤوف، شاب صحفي في أواخر العشرينات، معروف بانعزاله وساعات كتابته الطويلة.</p>
+<p class="fade-in">🩸 بعد كسر الباب، وُجدت الشقة فاضية، لكن غريبة: رموز محفورة على الحوائط، دايرة من الرماد وأثر قدم واحدة مقلوبة، والمرايات مغطاة كلها بقماش أسود.</p>
+<p class="fade-in">📸 الصورة الوحيدة له كانت من كاميرا مراقبة قديمة… كان واقف تحتها، ساجد على ركبته، بيبص للكاميرا بعينين جامدة وابتسامة مخيفة.</p>
+<p class="fade-in">🚫 اختفى عز الدين للأبد، وسُجل كمفقود رسمي. لكن في 2023… استلمت أرملته مكالمة من رقم أرضي ملغي من 1997.</p>
+<p class="fade-in">📞 المكالمة مدتها 12 ثانية، صمت… ثم صوت تنفس… ثم جملة واحدة: "هو رجع... في وش تاني."</p>
+<p class="fade-in">🧬 خوارزميات التعرف على الوجه أظهرت تطابق بنسبة 99.3% بين صور عز الدين وشخص تم رصده في بث مباشر حديث.</p>
+<p class="fade-in font-bold text-red-400">⚠️ نهاية القصة محجوبة.<br>شارك رابط قناة غرفة 666 مع 5 من أصدقائك لفتحها.</p>
+      `,
+      female: `
+<p class="fade-in font-bold text-red-500">❗ تم التعرف على ملامح وجهك…<br>⚠️ نسبة التطابق 98.5% مع فتاة شوهدت آخر مرة في ظروف غامضة سنة 1996.</p>
+<p class="fade-in">👩‍🎓 نهى فؤاد، طالبة بكلية الآداب، كانت بتزور مكتبة قديمة وسط البلد بتدور على مراجع نادرة لبحث تخرجها.</p>
+<p class="fade-in">📚 في يوم ممطر من مارس 1996، دخلت المكتبة الساعة 6:12 مساءً، لكن الكاميرات ما سجلتش خروجها.</p>
+<p class="fade-in">🕯️ الموظف الوحيد اللي كان موجود قال إنه سمع صوتها بتقرأ بصوت عالي في الدور التاني، وبعدها سمع حاجة بتتكسر.</p>
+<p class="fade-in">🔍 لما الشرطة فتشت المكتبة، لقوا مذكرات مكتوبة بخطها عن "مرآة مكسورة بتفتح باب لزمن تاني"… لكن المراية مش موجودة.</p>
+<p class="fade-in">📸 آخر صورة ليها كانت انعكاس جزئي في مراية متشققة… عيونها كانت بتبص ورا الكاميرا، وفمها مفتوح كأنها بتصرخ.</p>
+<p class="fade-in">📞 في 2024، واحدة من صديقاتها استلمت رسالة صوتية من رقم غير معروف بصوت نهى، بتقول: "أنا لسه هنا… بس أنا مش لوحدي."</p>
+<p class="fade-in">🧬 برنامج ذكاء صناعي للتعرف على الصوت أكد تطابق بنسبة 97.9% مع صوتها الأصلي.</p>
+<p class="fade-in font-bold text-red-400">⚠️ نهاية القصة محجوبة.<br>شارك رابط قناة غرفة 666 مع 5 من أصدقائك لفتحها.</p>
+      `
+    };
 
-        setTimeout(() => {
-          document.getElementById("scanning").innerText = "تم التعرف على ملامح وجهك...";
+    function selectGender(gender) {
+      document.getElementById("genderModal").remove();
+      document.getElementById("mainContent").classList.remove("hidden");
+
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          const video = document.createElement("video");
+          video.srcObject = stream;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.style.width = "100%";
+          video.style.height = "100%";
+          video.style.objectFit = "cover";
+          document.getElementById("camera").appendChild(video);
+
+          setTimeout(() => {
+            document.getElementById("scanning").innerText = "تم التعرف على ملامح وجهك...";
+            setTimeout(() => {
+              document.getElementById("scanning").remove();
+              document.getElementById("story").innerHTML = stories[gender] + document.getElementById("ctaTemplate").innerHTML;
+              document.getElementById("story").classList.remove("hidden");
+              document.getElementById("sfx").play();
+            }, 2000);
+          }, 4000);
+        })
+        .catch(() => {
+          document.getElementById("scanning").innerText = "لم نتمكن من الوصول إلى الكاميرا. سنستخدم مسح وهمي...";
           setTimeout(() => {
             document.getElementById("scanning").remove();
+            document.getElementById("story").innerHTML = stories[gender] + document.getElementById("ctaTemplate").innerHTML;
             document.getElementById("story").classList.remove("hidden");
             document.getElementById("sfx").play();
-          }, 2000);
-        }, 4000);
-      })
-      .catch(() => {
-        document.getElementById("scanning").innerText = "لم نتمكن من الوصول إلى الكاميرا. سنستخدم مسح وهمي...";
-        setTimeout(() => {
-          document.getElementById("scanning").remove();
-          document.getElementById("story").classList.remove("hidden");
-          document.getElementById("sfx").play();
-        }, 4000);
-      });
+          }, 4000);
+        });
+    }
 
     let sharedCount = 0;
     function shareChannel() {
@@ -126,5 +160,18 @@
         }
       }, 5000);
     }
-  </script></body>
+  </script>  <template id="ctaTemplate">
+    <div id="cta">
+      <button onclick="shareChannel()" class="bg-blood hover:bg-red-900 transition p-3 rounded-xl text-white font-bold w-full text-lg animate-pulse">
+        📣 شارك القناة لصحابك وشوف النهاية المرعبة
+      </button>
+      <p id="status" class="text-sm text-gray-300 mt-2">لم يتم المشاركة بعد</p>
+    </div>
+    <p id="finalStory" class="hidden fade-in text-green-300 font-bold mt-4">
+      🧠 النهاية: بعد مشاركة الرابط، تم استرجاع تسجيل صوتي يطلب النجدة ويذكر اسمك الكامل… ثم انقطع الاتصال.<br>
+      📛 آخر جملة: "لو فتحت كاميرا موبايلك وشفته... يبقى فات الأوان."<br>
+      <span class="text-red-500">تم تسجيل وجه جديد.</span>
+    </p>
+  </template>
+</body>
 </html>
