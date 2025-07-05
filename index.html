@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وجهك في السجل القديم</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            spooky: ['"Cairo"', 'sans-serif']
+          },
+          colors: {
+            dark: '#0f0f0f',
+            blood: '#7f1d1d',
+            light: '#f9fafb'
+          },
+        },
+      },
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- صوت مرعب -->
+  <audio id="sfx" src="https://cdn.pixabay.com/audio/2022/03/22/audio_f3adf9ec13.mp3" preload="auto"></audio>
+
+  <!-- مؤثر مسح بصري -->
+  <style>
+    body {
+      background: radial-gradient(#1a1a1a, #000);
+      font-family: 'Cairo', sans-serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .scan-line {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 0, 0, 0.5);
+      animation: scan 3s infinite;
+    }
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+  </style>
+</head>
+<body class="text-light flex flex-col items-center justify-center min-h-screen px-4">
+
+  <div class="max-w-xl w-full p-6 bg-dark rounded-xl shadow-2xl space-y-6 border border-blood relative overflow-hidden">
+    <div id="camera" class="w-full h-96 bg-black rounded-md overflow-hidden relative">
+      <div class="scan-line"></div>
+    </div>
+
+    <div id="scanning" class="text-center text-blood text-lg">جاري مسح ملامح وجهك...</div>
+
+    <div id="story" class="space-y-4 text-lg hidden">
+      <p class="fade-in font-bold text-green-400">✅ ❗ تم التعرف على ملامح وجهك…
+⚠️ نسبة التطابق 98.7% مع وجه مشتبه به في حادثة اختفاء سنة 1997.</p>
+      <p class="fade-in">🕵️‍♂️ في مساء يوم 22 نوفمبر سنة 1997، تلقت شرطة الدقي بلاغ عن أصوات مرعبة من شقة مغلقة في الطابق الخامس.</p>
+      <p class="fade-in">📁 الشقة كانت إيجارها باسم عز الدين يونس عبدالرؤوف، شاب صحفي في أواخر العشرينات، معروف بانعزاله وساعات كتابته الطويلة.</p>
+      <p class="fade-in">🩸 بعد كسر الباب، وُجدت الشقة فاضية، لكن غريبة: رموز محفورة على الحوائط، دايرة من الرماد وأثر قدم واحدة مقلوبة، والمرايات مغطاة كلها بقماش أسود.</p>
+      <p class="fade-in">📸 الصورة الوحيدة له كانت من كاميرا مراقبة قديمة… كان واقف تحتها، ساجد على ركبته، بيبص للكاميرا بعينين جامدة وابتسامة مخيفة.</p>
+      <p class="fade-in">🚫 اختفى عز الدين للأبد، وسُجل كمفقود رسمي. لكن في 2023… استلمت أرملته مكالمة من رقم أرضي ملغي من 1997.</p>
+      <p class="fade-in">📞 المكالمة مدتها 12 ثانية، صمت… ثم صوت تنفس… ثم جملة واحدة: "هو رجع... في وش تاني."</p>
+      <p class="fade-in">🧬 خوارزميات التعرف على الوجه أظهرت تطابق بنسبة 99.3% بين صور عز الدين وشخص تم رصده في بث مباشر حديث.</p>
+      <p class="fade-in font-bold text-red-400">⚠️ نهاية القصة محجوبة.
+        <br>شارك رابط قناة غرفة 666 مع 5 من أصدقائك لفتحها.</p>
+
+      <div id="cta">
+        <button onclick="shareChannel()" class="bg-blood hover:bg-red-900 transition p-3 rounded-xl text-white font-bold w-full text-lg animate-pulse">
+          📣 شارك القناة لصحابك وشوف النهاية المرعبة
+        </button>
+        <p id="status" class="text-sm text-gray-300 mt-2">لم يتم المشاركة بعد</p>
+      </div>
+
+      <p id="finalStory" class="hidden fade-in text-green-300 font-bold">
+        🧠 النهاية: بعد مشاركة الرابط، تم استرجاع تسجيل صوتي لعز الدين يطلب النجدة، ويقول اسمك الكامل… قبل أن ينقطع الاتصال فجأة.
+        <br>📛 آخر جملة في التسجيل: "لو فتحت كاميرا موبايلك وشفته... يبقى فات الأوان."
+        <br><span class="text-red-500">تم تسجيل وجه جديد.</span>
+      </p>
+    </div>
+
+    <a href="https://whatsapp.com/channel/غرفة666" class="block text-center text-sm text-blue-400 underline hover:text-blue-200">📥 أو ادخل القناة مباشرة</a>
+  </div>
+
+  <script>
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        const video = document.createElement("video");
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.style.width = "100%";
+        video.style.height = "100%";
+        video.style.objectFit = "cover";
+        document.getElementById("camera").appendChild(video);
+        setTimeout(() => {
+          document.getElementById("scanning").innerText = "تم التعرف على ملامح وجهك...";
+          setTimeout(() => {
+            document.getElementById("scanning").remove();
+            document.getElementById("story").classList.remove("hidden");
+            document.getElementById("sfx").play();
+          }, 2000);
+        }, 4000);
+      })
+      .catch(() => {
+        document.getElementById("scanning").innerText = "لم نتمكن من الوصول إلى الكاميرا. سنستخدم مسح وهمي...";
+        setTimeout(() => {
+          document.getElementById("scanning").remove();
+          document.getElementById("story").classList.remove("hidden");
+          document.getElementById("sfx").play();
+        }, 4000);
+      });
+
+    let sharedCount = 0;
+    function shareChannel() {
+      const text = "لو قلبك جامد ومستعد تواجه المجهول... 👻💪
+غرفة 666 مستنياك بقصص مش لأي حد!
+ https://whatsapp.com/channel/0029VbA3VuZK0IBoWqy2QD2D ";
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+      sharedCount++;
+      const status = document.getElementById("status");
+      if (sharedCount >= 5) {
+        status.innerText = "✔️ شاركت مع 5 أشخاص! جاري فتح النهاية...";
+        status.classList.add("text-green-400", "font-bold");
+        document.getElementById("finalStory").classList.remove("hidden");
+        document.getElementById("cta").remove();
+      } else {
+        status.innerText = `✅ شاركت مع ${sharedCount} / 5 أشخاص`;
+      }
+    }
+  </script>
+
+</body>
+</html>
